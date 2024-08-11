@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSignupMutation } from "../hooks/useSignup";
+import { Loader2 } from "lucide-react";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -41,10 +42,17 @@ const Signup = () => {
         </div>
         <div className="mt-8 text-center">
           <button
+            disabled={signupMutation.isPending}
             onClick={handleSignup}
             className="px-4 w-full py-2 bg-[#e11d48] border-2 border-[#be123c] text-zinc-200 rounded-xl"
           >
-            Signup
+            {signupMutation.isPending ? (
+              <div className="flex items-center justify-center">
+                <Loader2 className="animate-spin" />
+              </div>
+            ) : (
+              "Signup"
+            )}
           </button>
           <p className="mt-2 text-sm">
             Dont have account?{" "}

@@ -83,7 +83,6 @@ export const getAllQuestions = async (req, res) => {
 export const editQuestion = async (req, res) => {
   console.log("req.params => ", req.params);
   try {
-    const userId = req.user.id;
     const id = req.params.id;
     const { question, answer, tag } = req.body;
 
@@ -100,7 +99,6 @@ export const editQuestion = async (req, res) => {
     const updatedQuestion = await prisma.question.update({
       where: {
         id: id,
-        userId: userId,
       },
       data: {
         text: question,

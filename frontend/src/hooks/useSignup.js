@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/userSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const signupUser = async (credentials) => {
   const response = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/users/signup`,
@@ -13,6 +14,7 @@ const signupUser = async (credentials) => {
 
 export const useSignupMutation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: signupUser,
     onSuccess: (data) => {
@@ -20,6 +22,7 @@ export const useSignupMutation = () => {
       localStorage.setItem("token", JSON.stringify(data.token));
       dispatch(setUser(data));
       toast.success("Signup in Successfully!!");
+      navigate("/dashboard");
     },
     onError: (error) => {
       toast.error(error?.response.data.message);
