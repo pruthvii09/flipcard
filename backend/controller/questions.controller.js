@@ -1,4 +1,5 @@
 import prisma from "../prisma/prisma.js";
+import { redis } from "../redis/init.js";
 
 export const addQuestion = async (req, res) => {
   try {
@@ -27,6 +28,11 @@ export const addQuestion = async (req, res) => {
 export const getQuestions = async (req, res) => {
   try {
     const { tag } = req.query;
+    const cachedItems = await redis.get(`all:${tag}`);
+    if (cachedItems) {
+      console.log("Fetched from cache => ");
+      return res.status(200).json(JSON.parse(cachedItems));
+    }
     console.log("tag => ", tag);
 
     let questions;
@@ -41,7 +47,9 @@ export const getQuestions = async (req, res) => {
         take: 10,
       });
     }
-
+    await redis.set(`all:${tag}`, JSON.stringify(questions));
+    const expirationTime = Math.floor(Date.now() / 1000) + 120;
+    await redis.expireat("all:items", expirationTime);
     res.status(200).json(questions);
   } catch (error) {
     console.log("error => ", error);
