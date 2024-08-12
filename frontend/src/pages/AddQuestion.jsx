@@ -4,6 +4,7 @@ import { useAddQuestion } from "../hooks/useAddQuestion";
 import { tags } from "../constants/data";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AddQuestion = () => {
   const [inputValue, setInputValue] = useState("");
@@ -42,7 +43,7 @@ const AddQuestion = () => {
   const questionMutation = useAddQuestion();
   const handleAddQuestion = () => {
     if (!data.question || !data.answer || !data.tag) {
-      return;
+      return toast.error("All fields required");
     }
     questionMutation.mutate(data, {
       onSuccess: () => {

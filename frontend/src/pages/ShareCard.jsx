@@ -7,7 +7,6 @@ import FlashSkeleton from "../components/FlashSkeleton";
 const ShareCard = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetQuestionById(id);
-  console.log("data => ", data);
   const [isFlipped, setIsFlipped] = useState(false);
   return (
     <div className="flex pt-28 items-center justify-center h-full">

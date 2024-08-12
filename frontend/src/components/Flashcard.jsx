@@ -25,9 +25,7 @@ const Flashcard = ({
     event.stopPropagation();
     event.preventDefault();
     const url = window.location.href;
-    console.log("url => ", url);
     const copyText = url + "share/" + questionId;
-    console.log("copyText => ", copyText);
     navigator.clipboard
       .writeText(copyText)
       .then(() => {

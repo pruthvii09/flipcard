@@ -19,7 +19,6 @@ export const useDeleteQuestion = () => {
   return useMutation({
     mutationFn: deleteQuestion,
     onSuccess: (data) => {
-      console.log("data => ", data);
       navigate("/dashboard");
       toast.success("Deleted successfullt!");
     },

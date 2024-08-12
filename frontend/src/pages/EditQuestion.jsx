@@ -7,6 +7,7 @@ import { useEditQuestion } from "../hooks/editQuestion";
 import ConformModal from "../components/ConformModal";
 import { useDeleteQuestion } from "../hooks/deleteQuestion";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const EditQuestion = () => {
   const { id } = useParams();
@@ -61,7 +62,7 @@ const EditQuestion = () => {
   };
   const handleAddQuestion = () => {
     if (!data.question || !data.answer || !data.tag) {
-      return;
+      return toast.error("All fields required");
     }
     editMutation.mutate({ id, data });
   };

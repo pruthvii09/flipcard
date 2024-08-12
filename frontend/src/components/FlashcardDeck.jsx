@@ -25,7 +25,6 @@ const FlashcardDeck = () => {
     );
     setIsFlipped(false);
   };
-  console.log("data => ", data);
 
   return (
     <div className="pt-10 flex flex-col items-center">

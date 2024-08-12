@@ -18,7 +18,6 @@ export const useAddQuestion = () => {
   return useMutation({
     mutationFn: addQuestion,
     onSuccess: (data) => {
-      console.log("data => ", data);
       toast.success("Question added successfully!");
     },
     onError: (error) => {},

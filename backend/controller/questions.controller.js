@@ -20,8 +20,7 @@ export const addQuestion = async (req, res) => {
     });
     res.status(201).json(newQuestion);
   } catch (error) {
-    console.log("error => ", error);
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -30,10 +29,8 @@ export const getQuestions = async (req, res) => {
     const { tag } = req.query;
     const cachedItems = await redis.get(`all:${tag}`);
     if (cachedItems) {
-      console.log("Fetched from cache => ");
       return res.status(200).json(JSON.parse(cachedItems));
     }
-    console.log("tag => ", tag);
 
     let questions;
 
@@ -52,8 +49,7 @@ export const getQuestions = async (req, res) => {
     await redis.expireat("all:items", expirationTime);
     res.status(200).json(questions);
   } catch (error) {
-    console.log("error => ", error);
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 export const getQuestionById = async (req, res) => {
@@ -81,7 +77,6 @@ export const getAllQuestions = async (req, res) => {
   }
 };
 export const editQuestion = async (req, res) => {
-  console.log("req.params => ", req.params);
   try {
     const id = req.params.id;
     const { question, answer, tag } = req.body;
@@ -109,7 +104,6 @@ export const editQuestion = async (req, res) => {
 
     res.status(200).json(updatedQuestion);
   } catch (error) {
-    console.log("error => ", error);
     res.status(500).json({ error: error.message });
   }
 };

@@ -3,20 +3,18 @@ import { Link, Navigate } from "react-router-dom";
 import { useLoginMutation } from "../hooks/useLogin";
 import { Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { user } = useSelector((store) => store.user);
-  console.log("user => ", user);
   const [data, setData] = useState({
     email: "",
     password: "",
   });
   const loginMutation = useLoginMutation();
   const handleLogin = () => {
-    console.log("data => ", data);
     if (!data.email || !data.password) {
-      console.log("first");
-      return;
+      return toast.error("All fields required");
     }
     loginMutation.mutate(data);
   };

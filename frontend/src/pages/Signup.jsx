@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSignupMutation } from "../hooks/useSignup";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -10,10 +11,8 @@ const Signup = () => {
   });
   const signupMutation = useSignupMutation();
   const handleSignup = () => {
-    console.log("data => ", data);
     if (!data.email || !data.password) {
-      console.log("first");
-      return;
+      return toast.error("All fields required");
     }
     signupMutation.mutate(data);
   };
