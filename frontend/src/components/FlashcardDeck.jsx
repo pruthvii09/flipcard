@@ -56,7 +56,9 @@ const FlashcardDeck = () => {
       ) : (
         <Flashcard
           index={currentCardIndex}
-          questionId={data[currentCardIndex]?._id?.$oid}
+          questionId={
+            data[currentCardIndex]?._id?.$oid || data[currentCardIndex]?.id
+          }
           question={data[currentCardIndex]?.text}
           answer={data[currentCardIndex]?.answer}
           isFlipped={isFlipped}
@@ -67,12 +69,14 @@ const FlashcardDeck = () => {
 
       <div className="mt-4 flex items-center justify-between w-full">
         <button
+          disabled={isLoading}
           onClick={prevCard}
           className="px-6 py-2 bg-[#191919] border-2 border-zinc-800 text-zinc-200 rounded-xl"
         >
           Previous
         </button>
         <button
+          disabled={isLoading}
           onClick={nextCard}
           className="px-6 py-2 bg-[#e11d48] border-2 border-[#be123c] text-zinc-200 rounded-xl"
         >

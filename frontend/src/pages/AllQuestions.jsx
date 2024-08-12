@@ -3,7 +3,7 @@ import QuestionCard from "../components/QuestionCard";
 import { Link, Navigate } from "react-router-dom";
 import useGetAllQuestions from "../hooks/getAllQuestions";
 import QuestionCardSkeleton from "../components/QuestionCardSkeleton";
-import { Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const AllQuestions = () => {
@@ -22,10 +22,11 @@ const AllQuestions = () => {
   return (
     <div className="pt-24 min-h-screen md:px-8 px-2 pb-10">
       <div className="flex flex-col md:flex-row w-full gap-3 items-center justify-between">
-        <div className="w-full md:w-auto mb-4">
+        <div className="w-full md:w-auto mb-4 relative">
+          <Search size={18} className="absolute text-zinc-200 top-3 left-2" />
           <input
             type="text"
-            className="text-zinc-200 bg-transparent outline-none w-full md:w-64 py-2 rounded-md px-2 border border-[#27272a]"
+            className="text-zinc-200 pl-8 bg-transparent outline-none w-full md:w-64 py-2 rounded-md px-2 border border-[#27272a]"
             placeholder="Search..."
             value={searchTerm}
             onChange={handleSearch}
