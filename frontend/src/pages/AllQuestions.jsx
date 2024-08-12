@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import QuestionCard from "../components/QuestionCard";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useGetAllQuestions from "../hooks/getAllQuestions";
 import QuestionCardSkeleton from "../components/QuestionCardSkeleton";
 import { Plus, Search } from "lucide-react";
@@ -11,6 +11,7 @@ const AllQuestions = () => {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+  const navigate = useNavigate();
   const { data, isLoading } = useGetAllQuestions();
   const filteredQuestions = data?.filter((question) =>
     question.text.toLowerCase().includes(searchTerm.toLowerCase())
@@ -32,7 +33,10 @@ const AllQuestions = () => {
             onChange={handleSearch}
           />
         </div>
-        <div className="fixed bottom-8 right-8 bg-red-500 z-10 h-14 w-14 rounded-full flex items-center justify-center md:hidden ">
+        <div
+          onClick={() => navigate("/dashboard/add-question")}
+          className="fixed bottom-8 right-8 bg-red-500 z-10 h-14 w-14 rounded-full flex items-center justify-center md:hidden "
+        >
           <Plus size={40} strokeWidth={1.5} className="text-white" />
         </div>
         <Link

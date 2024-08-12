@@ -10,9 +10,6 @@ const QuestionCard = ({ question }) => {
     >
       <div className="flex items-center gap-3">
         <h1 className="text-zinc-200 text-xl">{question?.text}</h1>
-        <span className="text-xs  border-pink-500 border rounded-full px-2 py-0.5">
-          {question.tag}
-        </span>
       </div>
       <p
         className="text-sm text-justify"

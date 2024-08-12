@@ -61,8 +61,8 @@ const AddQuestion = () => {
     return <Navigate to="/login" />;
   }
   return (
-    <div className="pb-8 pt-24  flex items-center justify-center text-white">
-      <div className="md:w-2/5 w-4/5 md:px-10 px-3 py-4 bg-[#191919] text-white rounded-xl border border-[#27272a]">
+    <div className="pb-8 pt-24 px-4 md:px-0  flex items-center justify-center text-white">
+      <div className="md:w-2/5 w-full md:px-10 px-3 py-4 bg-[#191919] text-white rounded-xl border border-[#27272a]">
         <div>
           <h1 className="text-2xl ">Add a Question</h1>
         </div>
