@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { app } from "./app.js";
 import connectDB from "./database/connectToDb.js";
-
+import serverless from "serverless-http";
 dotenv.config({
   path: "./.env",
 });
@@ -18,4 +18,4 @@ connectDB()
     console.log("Database connection error:", error);
   });
 
-export { app };
+export const handler = serverless(app);
