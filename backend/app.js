@@ -11,8 +11,10 @@ app.use(express.static("public"));
 // Routes import
 import userRoutes from "./routes/user.routes.js";
 import questionRoutes from "./routes/questions.routes.js";
+import bannerRoutes from "./routes/banner.routes.js";
 
 // Routes declaration
 app.use("/users", userRoutes);
 app.use("/questions", questionRoutes);
+app.use("/banner", bannerRoutes);
 export { app };

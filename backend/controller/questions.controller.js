@@ -20,17 +20,17 @@ export const addQuestion = async (req, res) => {
     });
     res.status(201).json(newQuestion);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error });
   }
 };
 
 export const getQuestions = async (req, res) => {
   try {
     const { tag } = req.query;
-    const cachedItems = await redis.get(`all:${tag}`);
-    if (cachedItems) {
-      return res.status(200).json(JSON.parse(cachedItems));
-    }
+    // const cachedItems = await redis.get(`all:${tag}`);
+    // if (cachedItems) {
+    //   return res.status(200).json(JSON.parse(cachedItems));
+    // }
 
     let questions;
 
@@ -44,12 +44,12 @@ export const getQuestions = async (req, res) => {
         take: 10,
       });
     }
-    await redis.set(`all:${tag}`, JSON.stringify(questions));
-    const expirationTime = Math.floor(Date.now() / 1000) + 120;
-    await redis.expireat("all:items", expirationTime);
+    // await redis.set(`all:${tag}`, JSON.stringify(questions));
+    // const expirationTime = Math.floor(Date.now() / 1000) + 120;
+    // await redis.expireat("all:items", expirationTime);
     res.status(200).json(questions);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error });
   }
 };
 export const getQuestionById = async (req, res) => {
@@ -65,7 +65,7 @@ export const getQuestionById = async (req, res) => {
     }
     res.status(200).json(question);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error });
   }
 };
 export const getAllQuestions = async (req, res) => {
@@ -73,7 +73,7 @@ export const getAllQuestions = async (req, res) => {
     const questions = await prisma.question.findMany();
     res.status(200).json(questions);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error });
   }
 };
 export const editQuestion = async (req, res) => {
@@ -121,6 +121,6 @@ export const deleteQuestion = async (req, res) => {
     }
     res.status(200).json({ message: "Deleted Successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error });
   }
 };

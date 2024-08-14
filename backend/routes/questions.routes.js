@@ -8,17 +8,22 @@ import {
   getQuestions,
 } from "../controller/questions.controller.js";
 import { auth } from "../middleware/auth.js";
+import { rateLimiter } from "../middleware/rateLimiter.js";
 
+const limiter = rateLimiter({
+  maxRequest: 50,
+  windowMs: 15 * 60 * 1000,
+});
 const router = express.Router();
 
-router.post("/", auth, addQuestion);
+router.post("/", limiter, auth, addQuestion);
 
-router.get("/", getQuestions);
-router.get("/all", getAllQuestions);
-router.get("/:id", getQuestionById);
+router.get("/", limiter, getQuestions);
+router.get("/all", limiter, getAllQuestions);
+router.get("/:id", limiter, getQuestionById);
 
-router.patch("/:id", auth, editQuestion);
+router.patch("/:id", limiter, auth, editQuestion);
 
-router.delete("/:id", auth, deleteQuestion);
+router.delete("/:id", limiter, auth, deleteQuestion);
 
 export default router;
